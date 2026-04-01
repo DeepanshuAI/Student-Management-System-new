@@ -1,5 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
+import { motion } from 'framer-motion'
+import { GraduationCap, LogIn } from 'lucide-react'
 import {
   getAdminCredentialsHint,
   isLoggedIn,
@@ -26,7 +28,6 @@ export function LoginPage() {
     setError('')
     setBusy(true)
 
-    // Fake async feel (optional), keeps UI responsive.
     await new Promise((r) => setTimeout(r, 250))
 
     const res = login({ username, password })
@@ -41,24 +42,34 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-indigo-50/80 dark:from-slate-900 dark:via-slate-900 dark:to-indigo-950/40">
       <div className="mx-auto flex min-h-screen max-w-6xl items-center justify-center px-4 py-10">
         <div className="w-full max-w-md">
-          <div className="mb-6 text-center">
-            <div className="text-xs font-semibold text-slate-500">
-              Smart Student Management System
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35 }}
+            className="mb-8 text-center"
+          >
+            <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-600 text-white shadow-soft-lg dark:bg-indigo-500">
+              <GraduationCap className="h-8 w-8" />
             </div>
-            <div className="mt-1 text-3xl font-semibold tracking-tight text-slate-900">
-              Admin Login
+            <div className="mt-4 text-xs font-bold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+              Student Management System
             </div>
-            <div className="mt-2 text-sm text-slate-600">
-              Phase 1 uses <span className="font-semibold">dummy auth</span> and
-              stores data in <span className="font-semibold">localStorage</span>
+            <div className="mt-1 text-3xl font-bold tracking-tight text-slate-900 dark:text-white">
+              Admin login
+            </div>
+            <div className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+              Phase 1 uses dummy auth; data stays in{' '}
+              <span className="font-semibold text-slate-800 dark:text-slate-200">
+                localStorage
+              </span>
               .
             </div>
-          </div>
+          </motion.div>
 
-          <Card>
+          <Card hoverLift>
             <form onSubmit={onSubmit} className="space-y-4">
               <Input
                 label="Username"
@@ -77,24 +88,30 @@ export function LoginPage() {
               />
 
               {error ? (
-                <div className="rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-sm font-medium text-rose-700">
+                <div className="rounded-xl border border-rose-200/90 bg-rose-50 px-3 py-2 text-sm font-medium text-rose-700 dark:border-rose-800/60 dark:bg-rose-950/40 dark:text-rose-200">
                   {error}
                 </div>
               ) : null}
 
-              <Button type="submit" className="w-full" disabled={busy}>
+              <Button type="submit" className="w-full gap-2" disabled={busy}>
+                <LogIn className="h-4 w-4" />
                 {busy ? 'Signing in…' : 'Sign in'}
               </Button>
             </form>
           </Card>
 
-          <div className="mt-4 text-center text-xs text-slate-500">
-            Default credentials: <span className="font-semibold">admin</span> /{' '}
-            <span className="font-semibold">admin123</span>
+          <div className="mt-5 text-center text-xs text-slate-500 dark:text-slate-400">
+            Default credentials:{' '}
+            <span className="font-semibold text-slate-700 dark:text-slate-300">
+              admin
+            </span>{' '}
+            /{' '}
+            <span className="font-semibold text-slate-700 dark:text-slate-300">
+              admin123
+            </span>
           </div>
         </div>
       </div>
     </div>
   )
 }
-

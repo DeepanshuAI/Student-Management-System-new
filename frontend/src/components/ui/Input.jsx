@@ -8,24 +8,31 @@ export function Input({
   return (
     <label className="block">
       {label ? (
-        <div className="mb-1 text-sm font-semibold text-slate-800">{label}</div>
+        <div className="mb-1.5 text-sm font-semibold text-slate-700 dark:text-slate-200">
+          {label}
+        </div>
       ) : null}
 
       <input
         className={[
-          'w-full rounded-lg bg-white px-3 py-2 text-sm text-slate-900 shadow-sm ring-1 ring-slate-200 placeholder:text-slate-400 focus:ring-2 focus:ring-slate-400',
-          error ? 'ring-rose-300 focus:ring-rose-400' : '',
+          'w-full rounded-xl border-0 bg-white px-3.5 py-2.5 text-sm text-slate-900 shadow-soft ring-1 ring-slate-200/90 placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-500 dark:bg-slate-900/60 dark:text-slate-100 dark:ring-slate-600 dark:placeholder:text-slate-500 dark:focus:ring-indigo-400',
+          error
+            ? 'ring-rose-300 focus:ring-rose-500 dark:ring-rose-500/60 dark:focus:ring-rose-400'
+            : '',
           className,
         ].join(' ')}
         {...props}
       />
 
       {error ? (
-        <div className="mt-1 text-xs font-medium text-rose-700">{error}</div>
+        <div className="mt-1.5 text-xs font-medium text-rose-600 dark:text-rose-400">
+          {error}
+        </div>
       ) : hint ? (
-        <div className="mt-1 text-xs text-slate-500">{hint}</div>
+        <div className="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
+          {hint}
+        </div>
       ) : null}
     </label>
   )
 }
-

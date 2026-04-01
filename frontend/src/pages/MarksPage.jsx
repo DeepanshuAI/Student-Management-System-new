@@ -56,6 +56,8 @@ export function MarksPage() {
 
   // Keep a React state copy so controlled inputs can update immediately.
   // Sync it from localStorage whenever the selected exam changes.
+  /* Sync editable marks when switching exams (localStorage source of truth). */
+  /* eslint-disable react-hooks/set-state-in-effect -- draft must reset when selected exam changes */
   useEffect(() => {
     if (!selectedExam) {
       setMarksDraft({})
@@ -63,6 +65,7 @@ export function MarksPage() {
     }
     setMarksDraft(getMarksForExam(selectedExam.id))
   }, [selectedExamId, selectedExam])
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   const summary = useMemo(() => {
     if (!selectedExam) return null

@@ -93,10 +93,10 @@ export function AttendancePage() {
     <div className="space-y-5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <div className="text-2xl font-semibold tracking-tight text-slate-900">
+          <div className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">
             Attendance
           </div>
-          <div className="text-sm text-slate-600">
+          <div className="text-sm text-slate-600 dark:text-slate-400">
             Mark daily attendance (stored in localStorage by date).
           </div>
         </div>
@@ -117,8 +117,8 @@ export function AttendancePage() {
           className={[
             'rounded-2xl px-4 py-3 text-sm font-medium ring-1',
             banner.type === 'ok'
-              ? 'bg-emerald-50 text-emerald-800 ring-emerald-200'
-              : 'bg-rose-50 text-rose-800 ring-rose-200',
+              ? 'bg-emerald-50 text-emerald-800 ring-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-200 dark:ring-emerald-800/60'
+              : 'bg-rose-50 text-rose-800 ring-rose-200 dark:bg-rose-950/40 dark:text-rose-200 dark:ring-rose-800/60',
           ].join(' ')}
         >
           {banner.message}

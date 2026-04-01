@@ -3,12 +3,22 @@ import { createId } from '../utils/id.js'
 
 const STUDENTS_KEY = 'students'
 
+function normalizeStudent(s) {
+  return {
+    ...s,
+    email: s.email ?? '',
+    course: s.course ?? '',
+    academicYear: s.academicYear ?? '',
+  }
+}
+
 export function getAllStudents() {
-  return readJson(STUDENTS_KEY, [])
+  return readJson(STUDENTS_KEY, []).map(normalizeStudent)
 }
 
 export function getStudentById(id) {
-  return getAllStudents().find((s) => s.id === id) || null
+  const s = getAllStudents().find((x) => x.id === id) || null
+  return s
 }
 
 export function createStudent(input) {
@@ -21,13 +31,15 @@ export function createStudent(input) {
     section: input.section.trim(),
     gender: input.gender,
     phone: input.phone.trim(),
+    email: (input.email ?? '').trim(),
+    course: (input.course ?? '').trim(),
+    academicYear: (input.academicYear ?? '').trim(),
     createdAt: now,
     updatedAt: now,
   }
 
   const students = getAllStudents()
 
-  // Basic uniqueness checks (simple + beginner-friendly).
   const rollExists = students.some(
     (s) => s.rollNo.toLowerCase() === student.rollNo.toLowerCase(),
   )
@@ -54,6 +66,9 @@ export function updateStudent(id, patch) {
     className: (patch.className ?? current.className).trim(),
     section: (patch.section ?? current.section).trim(),
     phone: (patch.phone ?? current.phone).trim(),
+    email: (patch.email ?? current.email ?? '').trim(),
+    course: (patch.course ?? current.course ?? '').trim(),
+    academicYear: (patch.academicYear ?? current.academicYear ?? '').trim(),
     updatedAt: new Date().toISOString(),
   }
 
@@ -83,4 +98,3 @@ export function deleteStudent(id) {
 export function countStudents() {
   return getAllStudents().length
 }
-
